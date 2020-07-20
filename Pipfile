@@ -11,6 +11,8 @@ djangorestframework = "*"
 python-dotenv = "*"
 psycopg2 = "*"
 drf-yasg = "*"
+django-rest-auth = "*"
+django-allauth = "*"
 
 [requires]
 python_version = "3.8"

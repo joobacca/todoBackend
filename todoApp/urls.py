@@ -32,7 +32,9 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    re_path('', schema_view.with_ui('redoc', cache_timeout=0), name='schema_redoc'),
+    re_path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema_redoc'),
     path('admin/', admin.site.urls),
-    path('api/todos/', include('todo.urls'))
+    path('accounts/', include('allauth.urls')),
+    path('api/auth/', include('rest_auth.urls')),
+    path('api/todos/', include('todo.urls')) 
 ]
