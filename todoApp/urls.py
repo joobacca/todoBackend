@@ -18,6 +18,8 @@ from django.urls import path, re_path, include
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
+from rest_auth.registration.views import VerifyEmailView
+from usermanagement.views import EmailConfirmationView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -32,9 +34,14 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    re_path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema_redoc'),
-    path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
+    re_path(r'^$', schema_view.with_ui('swagger', cache_timeout=0), name='schema_redoc'),
+    path('api/accounts/', include('allauth.urls')),
+    re_path(r'', include('django.contrib.auth.urls')),
+    re_path(r"^api/auth/registration/account-confirm-email/(?P<key>[\s\d\w().+-_',:&]+)/$", EmailConfirmationView.as_view(), name='account_confirm_email'),
+    re_path(r'^api/auth/registration/account-confirm-email/$', VerifyEmailView.as_view(), name='account_email_verification_sent'),
+    path('api/auth/registration/', include('rest_auth.registration.urls')),
     path('api/auth/', include('rest_auth.urls')),
-    path('api/todos/', include('todo.urls')) 
+    path('api/todos/', include('todo.urls')),
+    path('admin/', admin.site.urls),
 ]
+

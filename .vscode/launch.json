@@ -1,0 +1,17 @@
+{
+    "configurations": [
+      {
+        "name": "Run Django",
+        "type": "python",
+        "request": "attach",
+        "pathMappings": [
+            {
+                "localRoot": "${workspaceFolder}",
+                "remoteRoot": "/backend",
+            }
+        ],
+        "port": 8001,
+        "host": "0.0.0.0",
+      },
+    ]
+}

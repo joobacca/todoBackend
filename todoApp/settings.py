@@ -35,6 +35,7 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
 INSTALLED_APPS = [
     'todo',
+    'usermanagement',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,12 +48,40 @@ INSTALLED_APPS = [
     'rest_auth',
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'rest_auth.registration',
     'drf_yasg',
-    'usermanagement',
 ]
 
+AUTH_USER_MODEL = 'usermanagement.TodoUser'
+
+
+# Django-Allauth Settings
+# SITE_URL = 'http://localhost:8000/'
 SITE_ID = 1
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+# ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
+# ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_USERNAME_BLACKLIST = ['vds', 'vondersee', 'admin', 'adminuser', 'user', 'emden', 'account', 'stadtadmin',]
+
+# LOGIN_URL = SITE_URL + '/admin/login'
+SWAGGER_SETTINGS = {
+    'REFETCH_SCHEMA_WITH_AUTH': True,
+}
+
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'usermanagement.serializers.BaseUserSerializer'
+}
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': ['rest_framework.authentication.TokenAuthentication',],
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.AllowAny',
+    # ]
+}
 
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
@@ -82,6 +111,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.request',
             ],
         },
     },
