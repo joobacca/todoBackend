@@ -13,6 +13,7 @@ psycopg2 = "*"
 drf-yasg = "*"
 django-rest-auth = "*"
 django-allauth = "*"
+debugpy = "==1.0.0b12"
 
 [requires]
 python_version = "3.8"
