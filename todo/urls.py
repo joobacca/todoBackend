@@ -1,8 +1,8 @@
 from django.urls import path
-from rest_framework.urlpatterns import format_suffix_patterns
-from todo import views
+from rest_framework.routers import DefaultRouter
+from todo.views import TodoViewSet
 
-urlpatterns = [
-    path('', views.TodoList.as_view()),
-    path('<int:pk>/', views.TodoDetail.as_view())
-]
+router = DefaultRouter()
+router.register(r'', TodoViewSet, basename='todo')
+
+urlpatterns = router.urls
