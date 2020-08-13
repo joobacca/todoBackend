@@ -36,7 +36,7 @@ schema_view = get_schema_view(
 urlpatterns = [
     re_path(r'^$', schema_view.with_ui('swagger', cache_timeout=0), name='schema_redoc'),
     path('api/accounts/', include('allauth.urls')),
-    re_path(r'', include('django.contrib.auth.urls')),
+    re_path(r'^api/', include('django.contrib.auth.urls')),
     re_path(r"^api/auth/registration/account-confirm-email/(?P<key>[\s\d\w().+-_',:&]+)/$", EmailConfirmationView.as_view(), name='account_confirm_email'),
     re_path(r'^api/auth/registration/account-confirm-email/$', VerifyEmailView.as_view(), name='account_email_verification_sent'),
     path('api/auth/registration/', include('rest_auth.registration.urls')),
